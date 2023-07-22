@@ -2,7 +2,7 @@
 Functions for wikidump.
 
 ## Installation
-pip install pywikidump
+pip install pywikidump (not yet)
 
 ## License
 MIT License

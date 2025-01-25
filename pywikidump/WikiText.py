@@ -8,7 +8,8 @@ class WikiText():
         self.wikitext = wikitext
 
         self.re_bblock = regex.compile(r'{{((?>[^{{}}]+|(?R))*)}}')
-        self.re_infobox_title = regex.compile(r'^Infobox')
+        # self.re_infobox_title = regex.compile(r'^Infobox')
+        self.re_infobox_title = regex.compile(r'^(Infobox|infobox|基礎情報)')
         self.re_infobox_attribute = regex.compile(r'^\s*\|\s*(.*?)\s*=\s*(.*)\s*$')
         self.re_categories = regex.compile(r'\[\[[C|c]ategory\s*:\s*(.+)?\]\]')
     
@@ -23,7 +24,7 @@ class WikiText():
         (I don't know its only one or not.)
 
         self.wikitextから{{ }}で囲まれたブロックのリストを作成し、
-        そのうち「Infobox」で文章が開始するもののリストを返す。
+        そのうち「Infobox|infobox|基礎情報」で文章が開始するもののリストを返す。
         リストで返すのは、複数のinfoboxが記載されているケースがあるもしれないため。
         # https://en.wikipedia.org/wiki/Wikipedia:Manual_of_Style/Infoboxes
         '''

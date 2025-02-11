@@ -1,6 +1,7 @@
 # coding: utf-8
 
-import regex
+import regex # 作成当初、標準のreではネストしたカッコに対応できなかったためregexモジュールも使用。
+import re # 2025年関数追加時から使用
 
 class WikiText():
     def __init__(self, wikitext=''):
@@ -80,3 +81,21 @@ class WikiText():
                 categories.append(each_text)
 
         return categories
+
+    def getCleanText(self):
+
+        text = self.wikitext
+
+        # [[リンク]] -> リンク
+        text = re.sub(r'\[\[([^]|]+?)(?:\|[^]]+)?\]\]', r'\1', text)
+        # '''強調''' -> 強調
+        text = re.sub(r"'''(.+?)'''", r'\1', text)
+        # {{template}} 除去
+        # text = re.sub(r'\{\{[^}]+\}\}', '', text)
+        text = regex.sub(r'{{((?>[^{{}}]+|(?R))*)}}', '', text)
+        # 参照タグ除去
+        text = re.sub(r'<ref[^>]*?>.*?</ref>', '', text, flags=re.DOTALL)
+        # 空行の整理
+        text = re.sub(r'\n\s*\n', '\n\n', text)
+
+        return text.strip()
